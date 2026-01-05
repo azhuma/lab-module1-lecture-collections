@@ -15,4 +15,8 @@ public class Box<T> {
     public void setItem(T item) {
         this.item = item;
     }
+
+    public static <T> Box<T> getInstance() {
+        return new <T>Box(0);
+    }
 }

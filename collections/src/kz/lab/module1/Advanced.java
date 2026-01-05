@@ -37,6 +37,11 @@ public class Advanced {
         System.out.println(p);
         System.out.println(pReq);
 
+        PointRec pointRec = new PointRec.Builder()
+                .x(2)
+                .y(3)
+                .build();
+
     }
 
     private static void demoGenerics() {
@@ -52,6 +57,8 @@ public class Advanced {
         System.out.println(box2.getItem());
 
         // как написать фабричный метод?
+        var boxR = Box.<Integer>getInstance();
+        Integer x = boxR.getItem();
 
         // wildcards
         Box<Animal> box3 = new Box<>(new Cat()); // можно добавить кота
@@ -63,9 +70,11 @@ public class Advanced {
 
         Box<? super Animal> box6 = box3;
         box6.setItem(new Dog());
+
     }
 
     private static void demoLambda() {
+        System.out.println("lambda");
         var names = new ArrayList<>(List.of("four", "two", "three", "one"));
 
         // анонимный класс
@@ -78,11 +87,11 @@ public class Advanced {
         System.out.println(names);
 
         // лямбда
-        names.sort((o1, o2) -> Integer.compare(o1.length(), o2.length()));
+        names.sort((var o1, var o2) -> Integer.compare(o1.length(), o2.length()));
         // для параметров можно использовать типы, var или не указывать
 
         callMyFunc("me", s -> "hello " + s);
-        callMyFunc("reference", Advanced::func);
+        callMyFunc("reference", Advanced::func);  // method reference
 
         // Стандартные функциональные интерфейсы
         // Function: T->R
@@ -102,8 +111,17 @@ public class Advanced {
             }
 
             // в виде ляюбды
-            //names.forEach(name -> f.write(name););
+            //names.forEach(name -> {
+            //    f.write(name);
+            //});
             // проблема c checked exception
+            // что такое checked exception?
+
+            // Throwable
+            // Exception   Error (jvm)
+            // Runtime  Checked
+
+            // Sneaky throw
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
